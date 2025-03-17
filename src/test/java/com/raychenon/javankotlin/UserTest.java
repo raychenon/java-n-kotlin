@@ -21,7 +21,7 @@ public class UserTest {
     @Test
     public void testUserK(){
         // Kotlin class
-        UserK userK = new UserK("Raymond", "Chenon", "raychenon", true);
+        UserK userK = new UserK("Raymond", "Chenon", "raychenon", true, "Gerald");
         // setter
         userK.setActive(false);
 
@@ -33,7 +33,7 @@ public class UserTest {
     @Test
     public void compareUserK_and_UserJ(){
         UserJ userJ = new UserJ("Raymond", "Chenon", "raychenon", true);
-        UserK userK = new UserK("Raymond", "Chenon", "raychenon", true);
+        UserK userK = new UserK("Raymond", "Chenon", "raychenon", true,"");
 
         assertEquals(userJ.getFirstName(), userK.getFirstName());
         assertFalse(userJ.equals(userK));
