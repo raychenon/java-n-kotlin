@@ -26,10 +26,13 @@ class Main {
         println(String.format("mother name is %s , grandmother is %s", hero.getMother().getName(), hero.getMother().getMother().getName()));
 
         // great grand mother
-        if (hero.getMother().getMother().getMother() == null) {
-            println("No great great great grand mother");
-        } else {
+        if (hero != null &&
+                hero.getMother() != null &&
+                hero.getMother().getMother() != null &&
+                hero.getMother().getMother().getMother() != null) {
             println(String.format("great grand mother name is %s", hero.getMother().getMother().getMother().getName()));
+        }else{
+            println("No great great great grand mother");
         }
 
         Person greatGrandMother = hero.getMother().getMother().getMother();

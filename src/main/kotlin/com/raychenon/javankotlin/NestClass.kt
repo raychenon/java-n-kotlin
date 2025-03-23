@@ -28,6 +28,11 @@ private fun accessAncestors() {
         "mother name is ${hero.mother!!.name} , grandmother is ${hero.mother.mother!!.name}"
     )
 
+    // scoping function LET
+    hero?.mother?.father?.let { println("mathernal grand father = ${it.name}") }
+    // not accessed because of null
+    hero?.mother?.father?.father?.father?.let { println("mathernal great great grand father = ${it.name}") }
+
     // great grand mother
     if (hero.mother.mother.mother == null) {
         println("No great great great grand mother")
