@@ -1,11 +1,15 @@
 package com.raychenon.javankotlin;
 
 import com.raychenon.javankotlin.models.Person;
+import com.raychenon.javankotlin.pojo.PersonJ;
+
+import java.util.Optional;
 
 class Main {
 
     public static void main(String[] args) {
         accessAncestors();
+        accessOptionals();
     }
 
     /**
@@ -35,17 +39,27 @@ class Main {
             println("No great great great grand mother");
         }
 
-        Person greatGrandMother = hero.getMother().getMother().getMother();
-        // great great grand mother
-        /*
-        if (greatGrandMother.getMother() == null) {
+    }
 
-        }
-        // cannot do
-        if(greatGrandMother.getMother().getMother().getMother() == null) {
+    private static final PersonJ LUKE = new PersonJ("Luke", new PersonJ("Anakin", new PersonJ("Medi Clorian "), new PersonJ("Shmi")), null);
 
-        }
-        */
+
+    private static void accessOptionals() {
+
+        PersonJ luke = LUKE;
+
+        // father, father . father
+        var greatGrandFatherName = luke.getFather() // 1st
+                .map(x -> x.getFather())    // 2nd
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(PersonJ::getFather)// 3rd
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(PersonJ::getName)
+                        .orElse("not found");
+
+        println(String.format("%s's great grand father ( father 3 times ) is %s", luke.getName(), greatGrandFatherName));
 
     }
 
