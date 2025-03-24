@@ -10,6 +10,7 @@ class Main {
     public static void main(String[] args) {
         accessAncestors();
         accessOptionals();
+        accessChainingOptionals();
     }
 
     /**
@@ -61,6 +62,26 @@ class Main {
 
         println(String.format("%s's great grand father ( father 3 times ) is %s", luke.getName(), greatGrandFatherName));
 
+    }
+
+    private static void accessChainingOptionals(){
+        PersonJ greatGreatGrandFather = new PersonJ("Great-Great-Grandfather");
+        PersonJ greatGrandFather = new PersonJ("Great-Grandfather", greatGreatGrandFather, null);
+        PersonJ grandFather = new PersonJ("Grandfather", greatGrandFather, null);
+        PersonJ father = new PersonJ("Father", grandFather, null);
+        PersonJ person = new PersonJ("Person", father, null);
+
+        var greatGreatGrandFatherName = person.getFather()                      // Get the father
+                .flatMap(PersonJ::getFather)    // Get the grandfather
+                .flatMap(PersonJ::getFather)    // Get the great-grandfather
+                .flatMap(PersonJ::getFather);   // Get the great-great-grandfather
+
+
+        if(greatGreatGrandFatherName.isPresent()){
+            println(String.format("Great-Great-Grandfather's name: %s ", greatGreatGrandFatherName.get().getName()));
+        }else{
+            println("no Great-Great-Grandfather");
+        }
     }
 
     private static void println(String message) {
